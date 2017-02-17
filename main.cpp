@@ -50,7 +50,7 @@ int main() {
 
 		db.setCursorPos(xVal ,yVal);
 		db.setColor(DblBuffer::YELLOW, DblBuffer::BLACK);
-		db.write("@");   //  é©ã@ï`âÊ
+		db.write("Å°");   //  é©ã@ï`âÊ
 		db.swap();
 		//fps.Update();
 		fps2.Wait();
