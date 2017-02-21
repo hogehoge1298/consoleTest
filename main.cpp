@@ -1,16 +1,10 @@
-#include "FPSMgr.h"
 #include "FPSMgr2.h"
-#include "InputMgr.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "DblBuffer.h"
-#include "define.h"
+#include "Actor.h"
 
 using namespace std;
-
-int drawSizeX = 45;
-int drawSizeY = 25;
 
 int main() {
 	DblBuffer db(80, 300);
@@ -18,13 +12,16 @@ int main() {
 	FPSMgr2 fps2(30);
 	InputMgr iMgr;
 
-	float xVal = 0.0f;
-	float yVal = 1.0f;
+	//ÉvÉåÉCÉÑÅ[
+	CActor player(&db);
+	player.setInputMgr(&iMgr);
 
+	//ÉÅÉCÉìÉãÅ[Év
 	while (true)
 	{
 		fps2.Update();
-		iMgr.UpdateKeyboadState();
+		player.update();
+		//iMgr.UpdateKeyboadState();
 		db.setCursorPos(0, 0);
 		db.setColor(DblBuffer::GREEN, DblBuffer::BLACK);
 		char s[256];
@@ -32,25 +29,27 @@ int main() {
 		db.write(s);
 		db.setCursorPos(0, 1);
 		db.setColor(DblBuffer::GRAY, DblBuffer::BLACK);
-		for (int k = 0; k < drawSizeX * drawSizeY; ++k) {
-			db.setCursorPos(k % drawSizeX, k / drawSizeX + 1);
+		for (int k = 0; k < DRAW_SIZE_X * DRAW_SIZE_Y; ++k) {
+			db.setCursorPos(k % DRAW_SIZE_X, k / DRAW_SIZE_X + 1);
 			db.write(" ");     //  îwåiï`âÊ
 		}
-		xVal += iMgr.GetHorizontal() ;
-		yVal += iMgr.GetVertical() ;
+		//xVal += iMgr.GetHorizontal() ;
+		//yVal += iMgr.GetVertical() ;
 
-		xVal = fClamp(floor(xVal), (float)drawSizeX-1, 0.f);
-		db.setCursorPos(drawSizeX + 3, 0);
-		snprintf(s, 256, "x:%f", xVal);
+		//xVal = fClamp(floor(xVal), (float)drawSizeX-1, 0.f);
+		db.setCursorPos(DRAW_SIZE_X + 3, 0);
+		snprintf(s, 256, "x:%f", player.getPosition().x);
 		db.write(s);
-		yVal = fClamp(floor(yVal), (float)drawSizeY, 1.f);
-		db.setCursorPos(drawSizeX + 3, 1);
-		snprintf(s, 256, "y:%f", yVal);
+		//yVal = fClamp(floor(yVal), (float)drawSizeY, 1.f);
+		db.setCursorPos(DRAW_SIZE_X + 3, 1);
+		snprintf(s, 256, "y:%f", player.getPosition().y);
 		db.write(s);
 
-		db.setCursorPos(xVal ,yVal);
-		db.setColor(DblBuffer::YELLOW, DblBuffer::BLACK);
-		db.write("Å°");   //  é©ã@ï`âÊ
+		//db.setCursorPos(xVal ,yVal);
+		//db.setColor(DblBuffer::YELLOW, DblBuffer::BLACK);
+		//db.write("Å°");   //  é©ã@ï`âÊ
+
+		player.draw();
 		db.swap();
 		//fps.Update();
 		fps2.Wait();
