@@ -9,8 +9,8 @@
 
 using namespace std;
 
-int drawSizeX = 40;
-int drawSizeY = 20;
+int drawSizeX = 45;
+int drawSizeY = 25;
 
 int main() {
 	DblBuffer db(80, 300);
@@ -44,7 +44,7 @@ int main() {
 		snprintf(s, 256, "x:%f", xVal);
 		db.write(s);
 		yVal = fClamp(floor(yVal), (float)drawSizeY, 1.f);
-		db.setCursorPos(drawSizeX, 1);
+		db.setCursorPos(drawSizeX + 3, 1);
 		snprintf(s, 256, "y:%f", yVal);
 		db.write(s);
 
