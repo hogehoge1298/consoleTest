@@ -1,8 +1,9 @@
 #include "Actor.h"
 
 //コンストラクタ
-CActor::CActor(DblBuffer* obj):
-db(obj),
+CActor::CActor(DblBuffer* screenObj, FPSMgr2* fpsObj):
+db(screenObj),
+fpsMgr(fpsObj),
 show("■"),
 position(0.0f, 1.0f)
 {
@@ -33,8 +34,8 @@ void CActor::update()
 	iMgr->UpdateKeyboadState();
 
 	//入力
-	position.x = fClamp(position.x += iMgr->GetHorizontal(), (float)DRAW_SIZE_X-1.0f, 0.0f);
-	position.y = fClamp(position.y += iMgr->GetVertical(), (float)DRAW_SIZE_Y, 1.0f);
+	position.x = fClamp(position.x += iMgr->GetHorizontal() * fpsMgr->GetDeltaTime(), (float)DRAW_SIZE_X-1.0f, 0.0f);
+	position.y = fClamp(position.y += iMgr->GetVertical() * fpsMgr->GetDeltaTime(), (float)DRAW_SIZE_Y, 1.0f);
 	
 	//描画
 	draw();

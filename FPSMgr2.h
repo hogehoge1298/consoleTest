@@ -6,6 +6,7 @@ class FPSMgr2
 {
 private:
 	int mStartTime;
+	int mOldTime;
 	int mCount;
 	float mFps;
 	int FPS;
