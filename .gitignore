@@ -1,2 +1,8 @@
 *.opendb
+<<<<<<< HEAD
 Debug/
+=======
+Debug/
+*.db
+.vs/
+>>>>>>> develop

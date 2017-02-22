@@ -1,30 +1,29 @@
-#include "FPSMgr.h"
-#include "FPSMgr2.h"
-#include "InputMgr.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "DblBuffer.h"
-#include "define.h"
+#include "Player.h"
 
 using namespace std;
 
+<<<<<<< HEAD
 int drawSizeX = 45;
 int drawSizeY = 25;
 
+=======
+>>>>>>> develop
 int main() {
 	DblBuffer db(80, 300);
-	//FPSMgr fps(30);
 	FPSMgr2 fps2(30);
 	InputMgr iMgr;
 
-	float xVal = 0.0f;
-	float yVal = 1.0f;
+	//プレイヤー
+	Player player(&db, &fps2, &iMgr);
 
+	//メインループ
 	while (true)
 	{
 		fps2.Update();
-		iMgr.UpdateKeyboadState();
+		player.update();
 		db.setCursorPos(0, 0);
 		db.setColor(DblBuffer::GREEN, DblBuffer::BLACK);
 		char s[256];
@@ -32,27 +31,26 @@ int main() {
 		db.write(s);
 		db.setCursorPos(0, 1);
 		db.setColor(DblBuffer::GRAY, DblBuffer::BLACK);
-		for (int k = 0; k < drawSizeX * drawSizeY; ++k) {
-			db.setCursorPos(k % drawSizeX, k / drawSizeX + 1);
+		for (int k = 0; k < DRAW_SIZE_X * DRAW_SIZE_Y; ++k) {
+			db.setCursorPos(k % DRAW_SIZE_X, k / DRAW_SIZE_X + 1);
 			db.write(" ");     //  背景描画
 		}
-		xVal += iMgr.GetHorizontal() ;
-		yVal += iMgr.GetVertical() ;
 
-		xVal = fClamp(floor(xVal), (float)drawSizeX-1, 0.f);
-		db.setCursorPos(drawSizeX + 3, 0);
-		snprintf(s, 256, "x:%f", xVal);
+		db.setCursorPos(DRAW_SIZE_X + 3, 0);
+		snprintf(s, 256, "x:%f", player.getPosition().x);
 		db.write(s);
+<<<<<<< HEAD
 		yVal = fClamp(floor(yVal), (float)drawSizeY, 1.f);
 		db.setCursorPos(drawSizeX + 3, 1);
 		snprintf(s, 256, "y:%f", yVal);
+=======
+		db.setCursorPos(DRAW_SIZE_X + 3, 1);
+		snprintf(s, 256, "y:%f", player.getPosition().y);
+>>>>>>> develop
 		db.write(s);
 
-		db.setCursorPos(xVal ,yVal);
-		db.setColor(DblBuffer::YELLOW, DblBuffer::BLACK);
-		db.write("■");   //  自機描画
+		player.draw();
 		db.swap();
-		//fps.Update();
 		fps2.Wait();
 	}
 	return 0;

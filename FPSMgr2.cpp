@@ -9,6 +9,7 @@ FPSMgr2::FPSMgr2(int fps)
 	FPS = fps;
 	mFps = 0;
 	timeBeginPeriod(1);
+	mDeltaTime = 0.0f;
 }
 
 
@@ -21,7 +22,11 @@ FPSMgr2::~FPSMgr2()
 void FPSMgr2::Update() {
 	if (mCount == 0) {
 		mStartTime = timeGetTime();
+		mOldTime = timeGetTime();
 	}
+
+	mDeltaTime = (timeGetTime() - mOldTime) / 1000.0f;
+
 
 	if (mCount == FPS) {
 		int t = timeGetTime();
@@ -30,13 +35,14 @@ void FPSMgr2::Update() {
 		mStartTime = t;
 	}
 
+	mOldTime = timeGetTime();
 	mCount++;
 }
 
 void FPSMgr2::Wait() {
 	int tookTime = timeGetTime() - mStartTime;
 	int waitTime = mCount * 1000 / FPS - tookTime;
-	mDeltaTime = tookTime / mCount / 1000;
+	//mDeltaTime = tookTime / mCount / 1000.f;
 	if (waitTime > 0) {
 		Sleep(waitTime);
 	}
