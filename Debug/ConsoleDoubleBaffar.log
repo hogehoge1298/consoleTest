@@ -1,4 +1,0 @@
-﻿  Actor.cpp
-c:\users\s-kotoh\documents\visual studio 2015\projects\consoledoublebaffar\actor.cpp(47): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  ConsoleDoubleBaffar.vcxproj -> C:\Users\s-kotoh\documents\visual studio 2015\Projects\ConsoleDoubleBaffar\Debug\ConsoleDoubleBaffar.exe
-  ConsoleDoubleBaffar.vcxproj -> C:\Users\s-kotoh\documents\visual studio 2015\Projects\ConsoleDoubleBaffar\Debug\ConsoleDoubleBaffar.pdb (Full PDB)
