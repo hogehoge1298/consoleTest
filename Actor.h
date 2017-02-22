@@ -10,7 +10,7 @@ using namespace std;
 
 class CActor
 {
-private:
+protected:
 	Vector2 position;		//アクターの座標
 	string show;			//アクターの表示文字
 	DblBuffer* db;			//表示用バッファ管理クラス
@@ -18,16 +18,22 @@ private:
 	FPSMgr2* fpsMgr;		//FPS管理クラス
 
 public:
-	CActor(DblBuffer*, FPSMgr2*);
+	CActor();
 	~CActor();
 
 	void setActorPosition(Vector2 v);
 	void addActorPosition(Vector2 v);
 	void update();
-	void draw();
+	virtual void draw();
 
-	void setInputMgr(InputMgr*);
+	virtual void move();
 
 	Vector2 getPosition();
+
+	void setString(string c);
+
+	void setDblBuffer(DblBuffer*);
+	void setFpsMgr(FPSMgr2*);
+	void setInputMgr(InputMgr*);
 };
 

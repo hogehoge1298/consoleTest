@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "Actor.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -11,8 +11,7 @@ int main() {
 	InputMgr iMgr;
 
 	//プレイヤー
-	CActor player(&db, &fps2);
-	player.setInputMgr(&iMgr);
+	Player player(&db, &fps2, &iMgr);
 
 	//メインループ
 	while (true)
