@@ -4,9 +4,9 @@
 
 FPSMgr2::FPSMgr2(int fps)
 {
-	mStartTime = 0;
-	mCount = 0;
-	FPS = fps;
+	mStartTime = 0;			//計測開始時間
+	mCount = 0;				//一秒間のループ回数
+	FPS = fps;				//fpsの最大値
 	mFps = 0;
 	timeBeginPeriod(1);
 	mDeltaTime = 0.0f;
@@ -25,12 +25,13 @@ void FPSMgr2::Update() {
 		mOldTime = timeGetTime();
 	}
 
-	mDeltaTime = (timeGetTime() - mOldTime) / 1000.0f;
+	mDeltaTime = (timeGetTime() - mOldTime) * 0.001f;
 
 
 	if (mCount == FPS) {
 		int t = timeGetTime();
-		mFps = 1000.f / ((t - mStartTime) / (float)FPS);
+//		mFps = 1000.f / ((t - mStartTime) / (float)FPS);
+		mFps = FPS / ((t - mStartTime) / 1000.0f);
 		mCount = 0;
 		mStartTime = t;
 	}
